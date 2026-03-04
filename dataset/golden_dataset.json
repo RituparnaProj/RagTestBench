@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "expected_answer": "Paris is the capital of France."
+  },
+  {
+    "question": "Who wrote Hamlet?",
+    "expected_answer": "William Shakespeare wrote Hamlet."
+  },
+  {
+    "question": "What is Python?",
+    "expected_answer": "Python is a programming language."
+  }
+]
