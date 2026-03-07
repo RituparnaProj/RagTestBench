@@ -1,5 +1,5 @@
-from ContextFramework.validator.similarity_validator import validate_similarity
-from ContextFramework.llm_judge.judge import llm_judge
+from RagTestBench.validator.similarity_validator import validate_similarity
+from RagTestBench.llm_judge.judge import llm_judge
 
 def ragas_score(question, expected, actual):
 

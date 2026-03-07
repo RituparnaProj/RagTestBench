@@ -1,115 +1,128 @@
-# RAG Evaluation Framework (Local Ollama Stack)
+A modular Retrieval-Augmented Generation (RAG) evaluation framework built using a fully local LLM stack.
 
-A modular Retrieval-Augmented Generation (RAG) evaluation framework built using:
+This project demonstrates how to:
 
-- LangChain
-- Ollama (local LLM + embeddings)
-- FAISS vector store
-- Guardrails layer
-- RAG evaluation (similarity + LLM judge)
+Build a RAG pipeline
+Evaluate LLM responses
+Add validation layers for GenAI systems
+Test chatbot answers using semantic similarity + LLM judge
+The framework is designed as a reference architecture for GenAI testing and validation.
 
-This project demonstrates how to build and evaluate a local RAG pipeline in a structured, testable way.
+Architecture:
+User Question
+      ↓
+Guardrails Layer
+      ↓
+RAG Pipeline
+      ↓
+Load Documents
+      ↓
+Create Vector Store (FAISS)
+      ↓
+Retrieve Context
+      ↓
+Generate Answer (Ollama LLM)
+      ↓
+Evaluation Layer
+      ↓
+Semantic Similarity Validator
+      +
+LLM Judge
+      ↓
+Final Score
 
----
 
-## Architecture
+Tech Stack
+Python 3
+LangChain
+Ollama (Local LLM runtime)
+FAISS (Vector database)
+lama3 (LLM model via Ollama)
+nomic-embed-text (Embedding model via Ollama)
+This framework runs fully locally without any external APIs.
 
-User Question  
-→ Guardrails  
-→ RAG Pipeline  
-  → Load Documents  
-  → Create Vector Store (FAISS)  
-  → Retrieve Context  
-  → Generate Answer (Ollama LLM)  
-→ Evaluation Layer  
-  → Similarity Score  
-  → LLM Judge Score  
-  → Final Score  
+Project Structure:
+ ContextFramework/
 
----
+├── dataset/
+│   └── golden_dataset.json
+│
+├── rag/
+│   ├── embedder.py
+│   ├── generator.py
+│   ├── rag_pipeline.py
+│   ├── retriever.py
+│   └── vector_store.py
+│
+├── validator/
+│   └── similarity_validator.py
+│
+├── ragas_eval/
+│   └── ragas_score.py
+│
+├── llm_judge/
+│   └── judge.py
+│
+├── guardrails/
+│   └── guardrail.py
+│
+├── run_tests.py
+│
+└── README.md
 
-## Tech Stack
 
-- Python 3.x
-- LangChain
-- Ollama
-- FAISS
-- Nomic Embed Text (Ollama embedding model)
-- Llama3 (Ollama LLM)
-
----
-
----
-
-## ⚙️ Setup Instructions
-
-### 1️⃣ Install dependencies
-
-```bash
-pip install langchain langchain-community faiss-cpu
-
----
-
-## ⚙️ Setup Instructions
-
-### 1️⃣ Install dependencies
-
-```bash
-pip install langchain langchain-community faiss-cpu
-2️⃣ Install Ollama
-
-Download from:
+Setup Instructions:
+1.Install Python Dependencies - pip install langchain langchain-community faiss-cpu
+2.Install Ollama - Download Ollama from:
 https://ollama.com
-
-Start server:
-
-ollama serve
-3️⃣ Pull Required Models
+Start the Ollama server:
+3.Pull Required Models
 ollama pull llama3
 ollama pull nomic-embed-text
-
-4️⃣ Run the Test Framework
+4.Run the Framework
 python run_tests.py
 
-📊 What This Framework Evaluates
+What This Framework Evaluates:
+The framework evaluates chatbot responses using multiple validation layers.
+1 Semantic Similarity
+Compares expected answer vs generated answer using embedding similarity.
+2 LLM Judge
+Uses another LLM to score correctness of the response.
+3 Final Score
+A weighted score combining:
+Final Score =
+0.6 * Similarity Score
++
+0.4 * LLM Judge Score
 
-Whether retrieved context is relevant
+Example Output:
+Question: What is the capital of France?
 
-Whether generated answer matches expected answer
+Actual Answer: Paris
 
-How similar the answer is semantically
+Scores:
+similarity_score: 0.91
+judge_score: 0.87
+final_score: 0.89
 
-Whether LLM judge approves the response
+Purpose of This Project:
+This framework is designed as:
+A reference implementation for RAG testing
+A learning project for GenAI validation
+A foundation for building advanced LLM evaluation pipelines
+It demonstrates how to build testable AI systems instead of only generating responses.
 
-Final score is a weighted combination of similarity + judge score.
-
-🎯 Purpose
-
-This project is intended as:
-
-A reference implementation of a local RAG evaluation framework
-
-A learning foundation for GenAI testing and validation
-
-A base architecture that can be extended with CI/CD, logging, metrics, and dataset scaling
-
-🔮 Future Improvements
-
+Future Improvements
+Planned improvements include:
 Add structured logging
-
-Add CI pipeline
-
-Add multiple test datasets
-
-Add performance metrics (latency tracking)
-
+Add CI/CD pipeline
+Support multiple datasets
+Add latency and performance metrics
 Improve prompt engineering
+Upgrade embeddings to the latest langchain-ollama package
 
-Replace deprecated embeddings class
-
-👩‍💻 Author
-
-Built as part of continuous learning in GenAI test automation and RAG system validation.
-
-
----
+Author
+Built as part of continuous learning in:
+GenAI Testing
+RAG Systems
+LLM Evaluation Frameworks

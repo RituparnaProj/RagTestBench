@@ -3,6 +3,9 @@ import json
 from rag.rag_pipeline import rag_answer
 from ragas_eval.ragas_score import ragas_score
 from guardrails.guardrail import apply_guardrails
+from utils.logger import get_logger
+
+logger = get_logger()
 
 
 def run():
@@ -18,8 +21,11 @@ def run():
         question = test["question"]
         expected = test["expected_answer"]
 
-        print("\n==============================")
-        print("Question:", question)
+        #print("\n==============================")
+        #print("Question:", question)
+
+        logger.info("==============================")
+        logger.info(f"Question: {question}")
 
         # Guardrails check
         is_safe, message = apply_guardrails(question)
@@ -31,7 +37,8 @@ def run():
         # RAG answer
         actual = rag_answer(question)
 
-        print("Actual Answer:", actual)
+        #print("Actual Answer:", actual)
+        logger.info(f"Actual Answer: {actual}")
 
         # RAGAS scoring
         scores = ragas_score(
@@ -40,17 +47,20 @@ def run():
             actual
         )
 
-        print("Scores:", scores)
+        # print("Scores:", scores)
+        logger.info(f"Scores: {scores}")
 
         results.append({
             "question": question,
             "scores": scores
         })
 
-    print("\n========= FINAL SUMMARY =========")
+    # print("\n========= FINAL SUMMARY =========")
+    logger.info("========= FINAL SUMMARY =========")
 
     for r in results:
-        print(r)
+        #print(r)
+        logger.info(r)
 
 
 if __name__ == "__main__":
