@@ -52,7 +52,9 @@ def run():
 
         results.append({
             "question": question,
-            "scores": scores
+            "similarity_score": float(scores["similarity_score"]),
+            "judge_score": float(scores["judge_score"]),
+             "final_score": float(scores["final_score"])
         })
 
     # print("\n========= FINAL SUMMARY =========")
@@ -62,6 +64,7 @@ def run():
         #print(r)
         logger.info(r)
 
-
+    with open("reports/test_results.json", "w") as f:
+        json.dump(results, f, indent=4)
 if __name__ == "__main__":
     run()
