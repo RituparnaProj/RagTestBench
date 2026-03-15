@@ -1,6 +1,8 @@
-from rag.vector_store import create_vectorstore
+
+from rag.vector_store import load_vectorstore
 from rag.retriever import get_retriever
 from rag.generator import generate_answer
+
 
 
 def load_documents():
@@ -23,7 +25,7 @@ def rag_answer(question):
     docs = load_documents()
 
     # 2️⃣ Create vector store
-    vectorstore = create_vectorstore(docs)
+    vectorstore = load_vectorstore(docs)
 
     # 3️⃣ Retrieve relevant docs
     retriever = get_retriever(vectorstore)
@@ -36,3 +38,4 @@ def rag_answer(question):
     answer = generate_answer(context, question)
 
     return answer
+    

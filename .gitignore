@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+.venv/
+venv/
+
+# Mac
+.DS_Store
+
+# FAISS index
+faiss_index/
+
+# Reports
+reports/
+
+# Dataset (optional if large)
+dataset/
+
+# IDE
+.idea/
+.vscode/
+
+# Results
+reports/test_results.json
